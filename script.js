@@ -12,6 +12,7 @@ window.addEventListener('load', function() {
     let lineCap = 'round';
     let backgroundColor = 'white';
     let paths = []; // To store drawn paths for redrawing after background change
+    let currentPath = [];
 
     // Function to draw the current canvas background
     function drawBackground() {
@@ -48,12 +49,10 @@ window.addEventListener('load', function() {
         });
     }
 
-    let currentPath = [];
-
-    function startPosition(e) {
+    function startPosition(x, y) {
         painting = true;
         currentPath = []; // Start a new path
-        draw(e);
+        draw(x, y);
     }
 
     function finishedPosition() {
@@ -62,22 +61,38 @@ window.addEventListener('load', function() {
         saveCurrentPath(); // Save the path after finishing
     }
 
-    function draw(e) {
+    function draw(x, y) {
         if (!painting) return;
 
-        currentPath.push({ x: e.clientX, y: e.clientY }); // Add current point to the path
+        currentPath.push({ x, y }); // Add current point to the path
         ctx.lineWidth = lineWidth;
         ctx.lineCap = lineCap;
-        ctx.lineTo(e.clientX, e.clientY);
+        ctx.lineTo(x, y);
         ctx.stroke();
         ctx.beginPath();
-        ctx.moveTo(e.clientX, e.clientY);
+        ctx.moveTo(x, y);
     }
 
-    // EventListeners
-    canvas.addEventListener('mousedown', startPosition);
+    // Mouse Event Listeners
+    canvas.addEventListener('mousedown', (e) => startPosition(e.clientX, e.clientY));
     canvas.addEventListener('mouseup', finishedPosition);
-    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('mousemove', (e) => draw(e.clientX, e.clientY));
+
+    // Touch Event Listeners for mobile devices
+    canvas.addEventListener('touchstart', (e) => {
+        e.preventDefault(); // Prevent scrolling when drawing
+        const touch = e.touches[0]; // Get the first touch point
+        startPosition(touch.clientX, touch.clientY);
+    });
+    canvas.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        finishedPosition();
+    });
+    canvas.addEventListener('touchmove', (e) => {
+        e.preventDefault();
+        const touch = e.touches[0];
+        draw(touch.clientX, touch.clientY);
+    });
 
     // Clear canvas
     const clearButton = document.getElementById('clear');

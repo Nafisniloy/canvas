@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drawing</title>
+
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f1f1f1;
+        }
+
+        canvas {
+            border: 1px solid #000;
+        }
+        .color {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        .action-btns {
+            margin: 10px;
+            padding: 5px;
+            border-radius: 10px;
+        }
+        .background {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+
+    <canvas id="canvas"></canvas>
+
+    <div class="action-btns">
+        <button id="clear">Clear</button>
+        <button id="save">Save</button>
+
+    </div>
+    <div class="colors">
+        <button  class="color" style="background-color: red;"></button>
+        <button  class="color" style="background-color: green;"></button>
+        <button  class="color" style="background-color: blue;"></button>
+        <button  class="color" style="background-color: black;"></button>
+        <button  class="color" style="background-color: yellow;"></button>
+        <button  class="color" style="background-color: pink;"></button>
+        <button  class="color" style="background-color: purple;"></button>
+        <button  class="color" style="background-color: orange;"></button>
+        <button  class="color" style="background-color: brown;"></button>
+        <button  class="color" style="background-color: gray;"></button>
+        <button  class="color" style="background-color: white;"></button>
+
+    </div>
+    
+    <input type="range" id="size" min="1" max="50" value="10"
+    onchange="document.getElementById('size-value').textContent = this.value"
+    >
+    <span id="size-value">10</span>
+    
+
+    <div class="bg-colors">
+        <button  class="background" style="background-color: red;"></button>
+        <button  class="background" style="background-color: green;"></button>
+        <button  class="background" style="background-color: blue;"></button>
+        <button  class="background" style="background-color: black;"></button>
+        <button  class="background" style="background-color: yellow;"></button>
+        <button  class="background" style="background-color: pink;"></button>
+        <button  class="background" style="background-color: purple;"></button>
+        <button  class="background" style="background-color: orange;"></button>
+        <button  class="background" style="background-color: brown;"></button>
+        <button  class="background" style="background-color: gray;"></button>
+        <button  class="background" style="background-color: white;"></button>
+
+    </div>
+
+    <div class ="shapes" >
+        <button class="shape" id="round" data-shape="round">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="24px" height="24px">
+                <path d="M0 0h24v24H0z" fill="none"/>
+                <circle cx="12" cy="12" r="10"/>
+            </svg>
+        </button>
+        <button class="shape" id="square" data-shape="square">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="24px" height="24px">
+                <path d="M0 0h24v24H0z" fill="none"/>
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+            </svg>
+        </button>
+       
+    </div>
+    
+
+    <input type="range" id="opacity" min="0.1" step="0.1" max="1" value="1"
+    onchange="document.getElementById('opacity-value').textContent = this.value"
+    >
+    <span id="opacity-value">1</span>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>
